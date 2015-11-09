@@ -1,0 +1,401 @@
+body {
+	background-color: white;
+	min-height: 100vh;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+.navbar-brand {
+  float: left;
+  height: 50px;
+  padding: 10px 10px;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.logo {
+  height: 30px;
+  width: 30px;
+}
+
+.title a{
+  font-size: 23px;
+  margin-left: 40vw;
+  color: black !important;
+}
+
+.title a:hover{
+	color: #777 !important;
+}
+
+.profile-dropdown{
+	margin-left: 35vw;
+}
+
+.logout {
+  background-color: #ED2525;
+  color: white;
+}
+
+.logout:hover {
+  background-color: #BF2222 !important;
+}
+
+.logout a {
+  color: white !important;
+}
+
+.logout a:hover {
+  background-color: #BF2222 !important;
+}
+
+.error {
+  color: red !important;
+}
+
+/*    --------------------------------------------------
+	:: Login Section
+	-------------------------------------------------- */
+.login-logo{
+	width: 100px;
+	height: auto;
+	vertical-align: text-top;
+}
+
+.logo-name{
+	font-size: 100px;
+	display: inline;
+}
+
+#login {
+    padding-top: 200px
+}
+#login .form-wrap {
+    width: 30%;
+    margin: 0 auto;
+}
+#login h1 {
+    color: #1fa67b;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+#login .form-group {
+    margin-bottom: 25px;
+}
+#login .checkbox {
+    margin-bottom: 20px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+#login .checkbox.show:before {
+    content: '\e013';
+    color: #1fa67b;
+    font-size: 17px;
+    margin: 1px 0 0 3px;
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Glyphicons Halflings';
+}
+#login .checkbox .character-checkbox {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    display: inline-block;
+}
+#login .checkbox .label {
+    color: #6d6d6d;
+    font-size: 13px;
+    font-weight: normal;
+}
+#login .btn.btn-custom {
+    font-size: 14px;
+	margin-bottom: 20px;
+}
+#login .forget {
+    font-size: 13px;
+	text-align: center;
+	display: block;
+}
+
+/*    --------------------------------------------------
+	:: Inputs & Buttons
+	-------------------------------------------------- */
+.form-control {
+    color: #212121;
+}
+.btn-custom {
+    color: #fff;
+	background-color: #1fa67b;
+}
+.btn-custom:hover,
+.btn-custom:focus {
+    color: #fff;
+}
+
+#btn-login{
+  border: 2px solid #1fa67b;
+  background-color: white;
+  color: #1fa67b;
+  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+#btn-login:hover{
+	background-color: #1fa67b;
+	color: white;
+}
+
+#btn-signup{
+  border: 2px solid #1F82A6;
+  background-color: white;
+  color: #1F82A6;
+  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+#btn-signup:hover{
+  background-color: #1F82A6;
+  color: white;
+}
+
+#key, #email{
+	border: 1px solid black !important;
+}
+
+input{
+	border-radius: 1px !important;
+}
+
+/* Blue Flat Button
+==================================================*/
+.btn-sm {
+  position: relative;
+  vertical-align: center;
+  margin: 0px;
+  height: 100x;
+  padding: 20px 20px;
+  font-size: 4px;
+  color: rgb(154, 154, 154);
+  text-align: center;
+  /* text-shadow: 0 3px 2px rgba(0, 0, 0, 0.3); */
+  background: #EBEBEB;
+  border: 0;
+  border-bottom: 3px solid #F5F5F5;
+  cursor: pointer;
+  /* -webkit-box-shadow: inset 0 -3px #9FE8EF; */
+  /* box-shadow: inset 0 -3px #9FE8EF; */
+}
+.same-line input[type='checkbox']
+{
+    display:none;
+}
+
+.same-line label.checkbox
+{
+    display:inline-block;
+    font-size: 12.2pt;
+}
+
+.same-line input[type='checkbox']:checked + label.checkbox
+{
+    background-color: #FFBF00;
+}
+
+.btn-sm:active {
+  top: 2px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-sm:hover {
+  background: #45E1E8;
+  color: white;
+}
+
+.btn-sm:focus {
+  background: #45E1E8;
+  color: white;
+  outline: none;
+}
+
+@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') .funkyradio div {
+    clear: both;
+    /*margin: 0 50px;*/
+    overflow: hidden;
+}
+.funkyradio label {
+    /*min-width: 400px;*/
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #D1D3D4;
+    font-weight: normal;
+}
+.funkyradio input[type="radio"]:empty, .funkyradio input[type="checkbox"]:empty {
+    display: none;
+}
+.funkyradio input[type="radio"]:empty ~ label, .funkyradio input[type="checkbox"]:empty ~ label {
+    position: relative;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    margin-top: 2em;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.funkyradio input[type="radio"]:empty ~ label:before, .funkyradio input[type="checkbox"]:empty ~ label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content:'';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
+}
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before, .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
+}
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label, .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+    color: #888;
+}
+.funkyradio input[type="radio"]:checked ~ label:before, .funkyradio input[type="checkbox"]:checked ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #333;
+    background-color: #ccc;
+}
+.funkyradio input[type="radio"]:checked ~ label, .funkyradio input[type="checkbox"]:checked ~ label {
+    color: #777;
+}
+.funkyradio input[type="radio"]:focus ~ label:before, .funkyradio input[type="checkbox"]:focus ~ label:before {
+    box-shadow: 0 0 0 3px #999;
+}
+.funkyradio-default input[type="radio"]:checked ~ label:before, .funkyradio-default input[type="checkbox"]:checked ~ label:before {
+    color: #333;
+    background-color: #ccc;
+}
+.funkyradio-primary input[type="radio"]:checked ~ label:before, .funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #337ab7;
+}
+.funkyradio-success input[type="radio"]:checked ~ label:before, .funkyradio-success input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #5cb85c;
+}
+.funkyradio-danger input[type="radio"]:checked ~ label:before, .funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #d9534f;
+}
+.funkyradio-warning input[type="radio"]:checked ~ label:before, .funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #f0ad4e;
+}
+.funkyradio-info input[type="radio"]:checked ~ label:before, .funkyradio-info input[type="checkbox"]:checked ~ label:before {
+    color: #fff;
+    background-color: #5bc0de;
+}
+
+button#weekly {
+  background-color: rgb(255, 205, 0);
+  color: white;
+}
+
+.funkyradio {
+  width: 20vw;
+  margin-bottom: 30px;
+  margin-left: -15px;
+}
+
+/* 
+// Listrap v1.0, by Gustavo Gondim (http://github.com/ggondim)
+// Licenced under MIT License
+// For updates, improvements and issues, see https://github.com/inosoftbr/listrap
+*/
+
+.listrap {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            cursor: default;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .listrap li {
+            margin: 0;
+            padding: 10px;
+            font-size: 25px;
+            border-bottom: 1px solid rgb(236, 236, 236);
+        }
+
+        .listrap li.active, .listrap li:hover {
+            background-color: whitesmoke;
+        }
+
+        .listrap strong {
+            margin-left: 10px;
+        }
+
+        .listrap .listrap-toggle {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+        }
+
+        .listrap .listrap-toggle span {
+            background-color: #428bca;
+            opacity: 0.8;
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            display: none;
+            position: absolute;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            vertical-align: middle;
+            color: #ffffff;
+        }
+
+        .listrap .listrap-toggle span:before {
+            font-family: 'Glyphicons Halflings';
+            content: "\e013";
+        }
+
+        .listrap li.active .listrap-toggle span {
+            display: block;
+        }
+
+        .img-circle {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+        }
+
+        .points {
+          background-color: orange;
+          color: white;
+          padding: 5px 5px 5px 5px;
+          border-radius: 4px;
+        }

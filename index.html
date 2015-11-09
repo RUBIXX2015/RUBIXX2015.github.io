@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>Rubix | Gameified Education</title>
+
+    <!-- build:css app/styles/app.min.css -->
+    <link rel="stylesheet" href="app/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="app/styles/app.css">
+
+    <!-- endbuild -->
+
+    <!--[if lt IE 9]>
+    <script src="components/html5shiv-dist/html5shiv.js"></script>
+    <![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+    <!-- waiting for ui-router to support angular-1.2, hence some view animations are currently gracefully degrading -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-animate.js"></script>
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+ 
+  <body style="text-align:center">
+    <!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <noscript>
+        Please enable Javascript to experience this site :)
+    </noscript>
+    
+    <div ng-controller="MainController">
+
+      <section id="login" ng-hide="loggedIn">
+        <div class="container">
+          <div class="row">
+              <div class="col-xs-12">
+                  <div class="form-wrap">
+                    <p class="logo-name" style="text-align:center"><img src="img/RubixEnlarged.png" alt="Rubix" style="width:320px;height:300px;">RUBIX</p>
+                    <h1 style="color:black">Log in with your student email</h1>
+                    <h1 class="error" ng-show="error">{{errorMessage}}</h1>
+                        <form role="form" action="javascript:;" method="post" id="login-form" autocomplete="off">
+                            <div class="form-group">
+                                <label for="email" class="sr-only">Email</label>
+                                <input ng-model="loginEmail" type="email" name="email" id="email" class="form-control" placeholder="student.name@my.hamptonu.edu">
+                            </div>
+                            <div class="form-group">
+                                <label for="key" class="sr-only">Password</label>
+                                <input ng-model="loginPass" type="password" name="key" id="key" class="form-control" placeholder="Password">
+                            </div>
+                            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in" ng-click="login(loginEmail, loginPass)">
+                            <input type="submit" id="btn-signup" class="btn btn-custom btn-lg btn-block" value="Sign Up" ng-click="signup(loginEmail, loginPass)">
+                        </form>
+                        <a href="" class="forget" data-toggle="modal" data-target=".forget-modal" style="color:black" style="text-align:right">Forgot your password?</a>
+                        <h1 style="color:black"> A software originated developed by Hampton Students </h1>
+                        <hr>
+                  </div>
+            </div> <!-- /.col-xs-12 -->
+          </div> <!-- /.row -->
+        </div> <!-- /.container -->
+      </section>
+
+      <div class="modal fade forget-modal" tabindex="-1" role="dialog" aria-labelledby="myForgetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Recovery password</h4>
+            </div>
+            <div class="modal-body">
+              <p>Type your email account</p>
+              <input ng-model="recoveryEmail" type="email" name="recovery-email" id="recovery-email" class="form-control" autocomplete="off">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-custom" ng-click="resetPassword(recoveryEmail)">Recover</button>
+            </div>
+          </div> <!-- /.modal-content -->
+        </div> <!-- /.modal-dialog -->
+      </div> <!-- /.modal -->
+
+      <nav ng-show="loggedIn" class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+              <!-- <img class="logo" alt="Rubix" src="img/RubixEnlarged.png"> -->
+              <ul class="nav navbar-nav navbar-left">
+                <li class="title"><a href="#">{{pageTitle}}</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right profile-dropdown">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{userEmail}}<span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="navigate(1); pageTitle = 'Home'" href="#" ng-if="currentUserType == 1">Home</a></li>
+                    <li><a ng-click="navigate(2); pageTitle = 'Leaderboard'" href="#">Leaderboard</a></li>
+                    <li><a ng-click="navigate(3); pageTitle = 'Profile'" href="#">Profile</a></li>
+                    <li><a ng-click="navigate(4); pageTitle = 'Teacher Panel'" href="#" ng-if="currentUserType == 2">Teacher</a></li>
+                    <li class="divider"></li>
+                    <li class="logout"><a href="#" ng-click="logout()">Log out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="scene" ng-show="loggedIn">
+        <div id="home" ng-if="current == 1">
+          <div id="homecontent" class="row">
+            <div class="col-md-1 col-md-offset-1">
+              <div class="row">
+                <div class="btn-group-vertical" role="group" aria-label="Default button group">
+                    <p>Weeks</p>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(1)"><h4>1</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(2)"><h4>2</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(3)"><h4>3</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(4)"><h4>4</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(5)"><h4>5</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(6)"><h4>6</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(7)"><h4>7</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(8)"><h4>8</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(9)"><h4>9</h4></button>
+                </div>
+              </div>
+            </div>
+            
+            <div ng-show="!questionAnswered" class="col-md-7 col-md-offset-1">
+              <div class="row">
+                <h4>Week {{currentQuestion.week}}</h4>
+                
+                <h2 ng-if="currentQuestion.number != 0">Question Number {{studentSelectedNumber(currentQuestion.Number)}}:</h2>
+              </div>
+              <div class="row">
+                  <p id="questionbody">{{currentQuestion.body}} <span class="points">{{currentQuestion.points}} pts</span></p>
+              </div>
+              <div class="funkyradio">
+                <div ng-click="selectAnswer(0)" class="funkyradio-default">
+                    <input type="radio" name="radio" id="radio1" />
+                    <label for="radio1">{{currentQuestion.choices[0]}}</label>
+                </div>
+                <div ng-click="selectAnswer(1)" class="funkyradio-default">
+                    <input type="radio" name="radio" id="radio2"/>
+                    <label for="radio2">{{currentQuestion.choices[1]}}</label>
+                </div>
+                <div ng-click="selectAnswer(2)" class="funkyradio-default">
+                    <input type="radio" name="radio" id="radio3" />
+                    <label for="radio3">{{currentQuestion.choices[2]}}</label>
+                </div>
+                <div ng-click="selectAnswer(3)" class="funkyradio-default">
+                    <input type="radio" name="radio" id="radio4" />
+                    <label for="radio4">{{currentQuestion.choices[3]}}</label>
+                </div>
+              </div>
+              <div class="row"><input type="button" class="btn-custom" id="btn-login" ng-click="submitQuestion()" value='Submit'></div>
+            </div>
+            
+            <div ng-show="questionAnswered" class="col-md-7 col-md-offset-1">
+              <h2 ng-show="questionCorrect">You have chosen: </h2>
+              <h2 ng-show="questionCorrect">{{currentQuestion.choices[currentQuestion.answer]}}</h2>
+              <h2 ng-show="questionCorrect">Correct!</h2>
+              
+              <h2 ng-show="!questionCorrect"> You have chosen: </h2>
+              <h2 ng-show="!questionCorrect">{{currentQuestion.choices[currentAnswer]}}</h2>
+              
+              <h2 ng-show="!questionCorrect"> The Correct Answer is: </h2>
+              <h2 ng-show="!questionCorrect">{{currentQuestion.choices[currentQuestion.answer]}}</h2>
+              
+              <button ng-click="studentSelectedNumber(currentQuestion.number + 1)" class="btn-custom" id="btn-login"><h3>Next Question<h3></button>
+              
+            </div>
+            
+            <div class="col-md-1 col-md-offset-1">
+              <div class="row">
+                <div class="btn-group-vertical" role="group" aria-label="Default button group">
+                    <p>Questions</p>
+                    <!-- id="weekly" -->
+                    <button type="button" class="btn btn-sm"><h4>1</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>2</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>3</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>4</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>5</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>6</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>7</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>8</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>9</h4></button>
+                    <button type="button" class="btn btn-sm"><h4>10</h4></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="leaderboard" ng-if="current == 2">
+          <div class="container">
+            <div class="row">
+              <h2>Leaderboard</h2>
+              <ul class="listrap">
+                      <li ng-repeat="student in students">
+                          <div class="listrap-toggle">
+                              <span></span>
+                              <img src="img/avatars/{{student.avatarName}}.png" class="img-circle" />
+                          </div>
+                          <strong>{{student.totalPoints}} pts</strong>
+                      </li>
+                  </ul>
+            </div>
+          </div>
+        </div>
+
+        <div id="profile" ng-if="current == 3">
+          <h1>Profile Pages will be implemented soon! Thank You For Playing!</h1>
+        </div>
+        <div id="teacherhome" ng-if="current == 4">
+          <div id="newQuestionWeek" ng-hide="qJustAdded">
+            <form class="form-horizontal">
+
+            <div class="col-md-offset-4"><h2>New Question</h2></div> <br><br>
+
+            <!-- Select Basic -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="selectcourse">Select Course</label>
+              <div class="col-md-4">
+                <select id="selectcourse" name="selectcourse" class="form-control">
+                  <option value="1">CSC 151</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="question">New Question</label>
+              <div class="col-md-4">                     
+                <textarea class="form-control" id="questionBody" name="question">Enter your question here.</textarea>
+              </div>
+            </div>
+
+            <!-- Appended checkbox -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="appendedcheckbox"></label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input id="choice1" name="appendedcheckbox" class="form-control" type="text" placeholder="Option 1">
+                      <span class="input-group-addon">     
+                      <input type="checkbox" ng-click="answerSelected(0)">     
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+
+            <!-- Appended checkbox -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="appendedcheckbox"></label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input id="choice2" name="appendedcheckbox" class="form-control" type="text" placeholder="Option 2">
+                      <span class="input-group-addon">     
+                      <input type="checkbox" ng-click="answerSelected(1)">     
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+
+            <!-- Appended checkbox -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="appendedcheckbox"></label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input id="choice3" name="appendedcheckbox" class="form-control" type="text" placeholder="Option 3">
+                      <span class="input-group-addon">     
+                      <input type="checkbox" ng-click="answerSelected(2)">     
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+
+            <!-- Appended checkbox -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="appendedcheckbox"></label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input id="choice4" name="appendedcheckbox" class="form-control" type="text" placeholder="Option 3">
+                      <span class="input-group-addon">     
+                      <input type="checkbox" ng-click="answerSelected(3)">     
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="hint">Hint</label>
+              <div class="col-md-4">                     
+                <textarea class="form-control" id="hint" name="hint">Enter a hint for the question here.</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="points">Points</label>
+              <div class="col-md-4">                     
+                <textarea class="form-control" id="points" name="points">Enter value of question in points here.</textarea>
+              </div>
+            </div>
+
+            <!-- Multiple Radios (inline) -->
+            <!-- <div class="form-group"> -->
+              <label class="col-md-4 control-label" for="radios">Weeks</label>
+              <!-- <div class="col-md-4">  -->
+                <fieldset>
+                    
+                <label class="radio-inline" for="wradios-0">
+                  <input type="radio" ng-click="weekSelected(1)" name="wradios" id="wradios-0" value="w1" checked="checked">
+                  1
+                </label> 
+                <label class="radio-inline" for="wradios-1">
+                  <input type="radio" ng-click="weekSelected(2)" name="wradios" id="wradios-1" value="w2">
+                  2
+                </label> 
+                <label class="radio-inline" for="wradios-2">
+                  <input type="radio" ng-click="weekSelected(3)" name="wradios" id="wradios-2" value="w3">
+                  3
+                </label> 
+                <label class="radio-inline" for="wradios-3">
+                  <input type="radio" ng-click="weekSelected(4)" name="wradios" id="wradios-3" value="w4">
+                  4
+                </label> 
+                <label class="radio-inline" for="wradios-4">
+                  <input type="radio" ng-click="weekSelected(5)" name="wradios" id="wradios-4" value="w5">
+                  5
+                </label> 
+                <label class="radio-inline" for="wradios-5">
+                  <input type="radio" ng-click="weekSelected(6)" name="wradios" id="wradios-5" value="w6">
+                  6
+                </label> 
+                <label class="radio-inline" for="wradios-6">
+                  <input type="radio" ng-click="weekSelected(7)" name="wradios" id="wradios-6" value="w7">
+                  7
+                </label> 
+                <label class="radio-inline" for="wradios-7">
+                  <input type="radio" ng-click="weekSelected(8)" name="wradios" id="wradios-7" value="w8">
+                  8
+                </label> 
+                <label class="radio-inline" for="wradios-8">
+                  <input type="radio" ng-click="weekSelected(9)" name="wradios" id="wradios-8" value="w9">
+                  9
+                </label> 
+                <label class="radio-inline" for="wradios-9">
+                  <input type="radio" ng-click="weekSelected(10)" name="wradios" id="wradios-9" value="w10">
+                  10
+                </label>
+                </fieldset>
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- Multiple Radios (inline) -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="radios">Number</label>
+              <div class="col-md-4"> 
+                <fieldset>
+                <label class="radio-inline" for="radios-w">
+                  <input type="radio" ng-click="numberSelected(0)" name="radios" id="radios-w" value="Weekly Challenge" checked="checked">
+                  Weekly Challenge
+                </label> 
+                <label class="radio-inline" for="radios-0">
+                  <input type="radio" ng-click="numberSelected(1)" name="radios" id="radios-0" value="1">
+                  1
+                </label> 
+                <label class="radio-inline" for="radios-1">
+                  <input type="radio" ng-click="numberSelected(2)" name="radios" id="radios-1" value="2">
+                  2
+                </label> 
+                <label class="radio-inline" for="radios-2">
+                  <input type="radio" ng-click="numberSelected(3)" name="radios" id="radios-2" value="3">
+                  3
+                </label> 
+                <label class="radio-inline" for="radios-3">
+                  <input type="radio" ng-click="numberSelected(4)" name="radios" id="radios-3" value="4">
+                  4
+                </label> 
+                <label class="radio-inline" for="radios-4">
+                  <input type="radio" ng-click="numberSelected(5)" name="radios" id="radios-4" value="5">
+                  5
+                </label> 
+                <label class="radio-inline" for="radios-5">
+                  <input type="radio" ng-click="numberSelected(6)" name="radios" id="radios-5" value="6">
+                  6
+                </label> 
+                <label class="radio-inline" for="radios-6">
+                  <input type="radio" ng-click="numberSelected(7)" name="radios" id="radios-6" value="7">
+                  7
+                </label> 
+                <label class="radio-inline" for="radios-7">
+                  <input type="radio" ng-click="numberSelected(8)" name="radios" id="radios-7" value="8">
+                  8
+                </label> 
+                <label class="radio-inline" for="radios-8">
+                  <input type="radio" ng-click="numberSelected(9)" name="radios" id="radios-8" value="9">
+                  9
+                </label> 
+                <label class="radio-inline" for="radios-9">
+                  <input type="radio" ng-click="numberSelected(10)" name="radios" id="radios-9" value="10">
+                  10
+                </label>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="singlebutton"></label>
+              <div class="col-md-4">
+                <button id="singlebutton" name="singlebutton" class="btn btn-success" ng-click="submitNewQuestion()">Submit</button>
+              </div>
+            </div>
+
+            </form>
+          </div>
+
+          <div ng-show="qJustAdded">
+
+            <div><h2>Your question is uploaded successfully!</h2></div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="singlebutton"></label>
+              <div class="col-md-4">
+                <button id="singlebutton" name="singlebutton" class="btn btn-success" ng-click="qJustAdded = false">New Question</button>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+
+    <script src="http://www.parsecdn.com/js/parse-1.2.15.js"></script>
+    
+    <!-- build:js app/scripts/all.min.js -->
+    <script src="app/components/parse-angular.min.js"></script>
+    <script src="app/components/angular-ui-router.min.js"></script>
+    <script src="app/components/bootstrap.min.js"></script>
+    <script src="app/components/dropzone.js"></script>
+
+    <script>
+    function myFunction()
+    {
+        alert('You Have Successfully Submitted a Question! Thank You :) ');
+    }
+    </script>
+
+    <!-- Data Models -->
+    <script src="app/services/ParseServices.js"></script>
+    <script src="app/data/User.js"></script>
+    <script src="app/data/Badge.js"></script>
+    <script src="app/data/Course.js"></script>
+    <script src="app/data/Questions.js"></script>
+    <script src="app/data/Avatar.js"></script>
+
+    <!-- App core & templates -->
+    <script src="app/app.js"></script>
+    
+    <!-- Directives -->
+    <script src="app/directives/article-item/article-item.js"></script>
+    <script src="app/directives/image-drop/image-drop.js"></script>
+    
+    <!-- Controllers -->
+    <script src="app/controllers/main.js"></script>
+
+    <!-- endbuild -->
+
+    <script type="text/javascript">
+      // manual bootstrap
+      angular.element(document).ready(function() {
+        angular.bootstrap(document, ['app']);
+      });
+
+    </script>
+
+  </body>
+</html>
