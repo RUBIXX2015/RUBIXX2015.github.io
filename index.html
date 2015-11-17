@@ -24,6 +24,18 @@
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 
   </head>
+  <style>
+  @-webkit-keyframes example {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+
+/* Standard syntax */
+@keyframes example {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+</style>
  
   <body style="text-align:center">
     <!--[if lt IE 7]>
@@ -160,9 +172,46 @@
                     <label for="radio4">{{currentQuestion.choices[3]}}</label>
                 </div>
               </div>
-              <div class="row"><input type="button" class="btn-custom" id="btn-login" ng-click="submitQuestion()" value='Submit'></div>
-            </div>
-            
+
+              <div class="row"><span id="countdown" class="timer" style="color:black" style="text-align:right" style = "-webkit-animation-name: example" style = "-webkit-animation-duration: 4s" style = "animation-name: example" style = "animation-duration: 4s"></span>
+              <p> </p>
+                <p> </p>
+                <p> </p>
+              </div>
+
+              <script>
+              var seconds = 3600;
+              function secondPassed() {
+                  var minutes = Math.round((seconds - 30)/60);
+                  var remainingSeconds = seconds % 60;
+                  if (remainingSeconds < 10) {
+                      remainingSeconds = "0" + remainingSeconds;  
+                  }
+                  document.getElementById('countdown').innerHTML = "Your Left Time  is : " + minutes + ":" + remainingSeconds + " seconds";
+                  if (seconds == 0) {
+                      clearInterval(countdownTimer);
+                      document.getElementById('countdown').innerHTML = "TIME IS UP! You've taken more than 1 hour to complete this question. You may still answer but will recieve no points for it.";
+                  } 
+                  else 
+                  {
+                      seconds--;
+                  }
+              }
+              var countdownTimer = setInterval('secondPassed()', 1000);
+              </script>
+
+              <div class="row">
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <input type="button" class="btn-custom" id="btn-login" ng-click="submitQuestion()" value='Submit'></div>
+                <br> </br>
+                <p>________________</p>
+                <p>Would You Like To Play Music? </p>
+                <p> If so, please press the PLAY button </p>
+                 <audio controls="controls"><source src="JAMS.mp3" type="audio/mpeg" /></audio>
+              </div>
+          
             <div ng-show="questionAnswered" class="col-md-7 col-md-offset-1">
               <h2 ng-show="questionCorrect">You have chosen: </h2>
               <h2 ng-show="questionCorrect">{{currentQuestion.choices[currentQuestion.answer]}}</h2>
