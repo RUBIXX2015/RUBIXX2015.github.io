@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="app/styles/bootstrap.min.css">
     <link rel="stylesheet" href="app/styles/app.css">
 
+  <meta name="description" content="My Parse App">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+
     <!-- endbuild -->
 
     <!--[if lt IE 9]>
@@ -114,7 +121,8 @@
                     <li><a ng-click="navigate(1); pageTitle = 'Home'" href="#" ng-if="currentUserType == 1">Home</a></li>
                     <li><a ng-click="navigate(2); pageTitle = 'Leaderboard'" href="#">Leaderboard</a></li>
                     <li><a ng-click="navigate(3); pageTitle = 'Profile'" href="#">Profile</a></li>
-                    <li><a ng-click="navigate(4); pageTitle = 'Teacher Panel'" href="#" ng-if="currentUserType == 2">Teacher</a></li>
+                    <li><a ng-click="navigate(4); pageTitle = 'NewQuestion'" href="#">New Questions</a></li>
+                    <li><a ng-click="navigate(5); pageTitle = 'Teacher Panel'" href="#" ng-if="currentUserType == 2">Teacher</a></li>
                     <li class="divider"></li>
                     <li class="logout"><a href="#" ng-click="logout()">Log out</a></li>
                   </ul>
@@ -268,9 +276,253 @@
         </div>
 
         <div id="profile" ng-if="current == 3">
-          <h1>Profile Pages will be implemented soon! Thank You For Playing!</h1>
+          <p class="logo-name" style="text-align:center"><img src="img/RubixImg.png" alt="Rubix" style="width:320px;height:300px;"></p>
+  
+  
+  <div id="main">
+  
+  <div id="Current-User"></div>
+  <h1>Log out!</h1>
+  
+  
+  <div>
+   <button id="Logout">Log out</button>
+  </div>
+  
+  
+  <h1>Log in!</h1>
+  <form id="Login">
+      <p><input id="Login-Name" type="text"></p>
+      <p><input id="Login-Password" type="password"></p>
+      <p><input id="Login-Submit" type="submit"></p>
+  </form>
+  
+  
+  <h1>Register!</h1>
+  <form id="Register">
+      <p><input id="Signup-Name" type="text"></p>
+      <p><input id="Signup-Password" type="password"></p>
+      <p><input id="Signup-Submit" type="submit"></p>
+  </form>
+  
+  
+ 
+  <h1>New Profile Form</h1>
+      <form id ="Profile-Form">
+      <label class="col-md-4 control-label" for="First-Name" style="text-align:right">Enter first name </label>
+      <p><input id ="First-Name" type="text"></p>
+      <label class="col-md-4 control-label" for="Last-Name" style="text-align:right">Enter last name </label>
+      <p><input id="Last-Name" type="text"></p>
+      <label class="col-md-4 control-label" for="email" style="text-align:right">Enter email </label>
+      <p><input id="email" type="text"></p>
+      <label class="col-md-4 control-label" for="major" style="text-align:right">Enter major </label>
+      <p><input id="major" type="text"></p>
+      <label class="col-md-4 control-label" for="csc-class" style="text-align:right">Enter CSC class </label>
+      <p><input id="csc-class" type="text"></p>
+      <label class="col-md-4 control-label" for="section" style="text-align:right">Enter class section </label>
+      <p><input id="section" type="text"></p>
+      <label class="col-md-4 control-label" for="instructor" style="text-align:right">Enter instructor </label>
+      <p><input id="instructor" type="text"></p>
+      <label class="col-md-4 control-label" for="avatar" style="text-align:right">Upload avatar </label>
+      <p><input id="Avi-File" type="file"></p>
+      <p><input id="Profile-Submit" type="submit"></p>
+    </form>
+    
+  </div>
+
+
+  <script type="text/javascript">
+     Parse.initialize("URmLhPy0JkjYYTsj8gb0ovzwgBZZyE5rdmAfzJn1", "kfgeDrMXnqNvFX0fxZeRJcWgkAq7oAlZO4GV1Pgc");
+     var ProfileEntry = Parse.Object.extend("Profile");
+     
+     function checkLogin()
+     {
+      if(Parse.User.current()) 
+      {
+         $("#Current-User").html("Current user:"+Parse.User.current().get("username"));
+      }
+      else
+      {
+         $("#Current-User").html("");
+      }
+     }
+     
+     checkLogin();
+     
+     
+     $("#Logout").click(function(event) 
+     {//logout
+      Parse.User.logOut();
+      checkLogin();
+     });
+     
+     
+     
+     $("#Login").submit(function(event)
+     {//Login
+         event.preventDefault();
+     
+         var name = $("#Login-Name").val();
+         var pass = $("#Login-Password").val();
+         
+         Parse.User.logIn(name, pass, {
+            success: function(user){
+               checkLogin();
+         }, error: function(user, error){
+            console.log("Log in Error:"+error.message);
+         } 
+         
+         });
+       });
+     
+     
+     $("#Register").submit(function(event){//Registration
+         event.preventDefault();
+         
+         var name = $("#Signup-Name").val();
+         var pass = $("#Signup-Password").val();
+         
+         var user = new Parse.User();
+         user.set("username", name);
+         user.set("password", pass);
+         
+         user.signUp(null, {
+            success: function(user){
+               checkLogin();
+            }, error: function(user, error){
+               console.log("Signup error:"+error.message);
+            }
+         });
+      });
+         
+         
+     $("#Profile-Form").submit(function(event){
+       event.preventDefault();
+         var FirstName = $("#First-Name").val();
+         var LastName = $("#Last-Name").val();
+         var Email = $("#email").val();
+         var Major = $("#major").val();
+         var CSC_Class = $("#csc-class").val();
+         var Section = $("#section").val();
+         var Instructor = $("#instructor").val();
+         var user = Parse.User.current();
+
+         var newProfileEntry = new ProfileEntry();//new profile object
+         
+         newProfileEntry.set("FirstName", FirstName);
+         newProfileEntry.set("LastName", LastName);
+         newProfileEntry.set("Email", Email);
+         newProfileEntry.set("Major", Major);
+         newProfileEntry.set("CSC_Class", CSC_Class);
+         newProfileEntry.set("Section", Section);
+         newProfileEntry.set("Instructor", Instructor);
+         newProfileEntry.set("user", user);
+         
+         //get file from form input
+         var fileElement = $("#Avi-File")[0];
+         var filePath = $("#Avi-File").val();
+         var fileName = filePath.split("\\").pop();
+         
+         if(fileElement.files.length > 0)
+         {
+            var file = fileElement.files[0];
+            var newFile = new Parse.File(fileName, file);
+            newFile.save({
+            success: function(){
+            
+            }, error: function(file, error){
+               console.log("Error:"+error.message);
+            }
+            }).then(function(theFile){
+               newProfileEntry.set("file", theFile);
+               newProfileEntry.save({
+                  success:function(){
+                  
+                  }, error:function(error){
+                     console.log("Error:"+error.message);
+                  }
+                  
+                });
+            });
+         }else
+         {
+          newProfileEntry.save({
+            success: function(){
+            
+            }, error: function(error){
+               console.log("Error:"+error.message);
+            }
+         }); 
+        }
+            
+     });
+
+   </script>
+<!-- Link to go back to log-in page -->
+<p><a href="http://rubixx2015.github.io/#/">Return to log-in page</a></p>
         </div>
-        <div id="teacherhome" ng-if="current == 4">
+
+        <div id="NewQuestion" ng-if="current == 4" style="text-align:center">
+          
+            <p class="logo-name" style="text-align:center"><img src="img/RubixImg.png" alt="Rubix" style="width:320px;height:300px;"></p>
+            <br> </br>
+  <h1 style="text-align:center">New Question Form</h1>
+  <br> </br>
+      <form id ="Question-Form">
+      <label class="col-md-4 control-label" for="question" style="text-align:right">Enter question </label>
+      <p><textarea id ="question"></textarea></p>
+      <label class="col-md-4 control-label" for="question" style="text-align:right">Enter correct answer </label>
+      <p><input id="Correct-Answer" type="text"></p>
+      <label class="col-md-4 control-label" for="question" style="text-align:right">Enter first option </label>
+      <p><input id="Option-1" type="text"></p>
+      <label class="col-md-4 control-label" for="question" style="text-align:right">Enter second option </label>
+      <p><input id="Option-2" type="text"></p>
+      <label class="col-md-4 control-label" for="question" style="text-align:right">Enter third option </label>
+      <p><input id="Option-3" type="text"></p>
+      <label class="col-md-4 control-label" for="question" style="text-align:right">Enter hint </label>
+      <p><textarea id="hint"></textarea></p>
+      <p style="text-align:center"><input id="Question-Submit" type="submit"></p>
+    </form>
+    
+  </div>
+
+
+  <script type="text/javascript">
+     Parse.initialize("URmLhPy0JkjYYTsj8gb0ovzwgBZZyE5rdmAfzJn1", "kfgeDrMXnqNvFX0fxZeRJcWgkAq7oAlZO4GV1Pgc");
+    
+     var QuestionEntry = Parse.Object.extend("Database");
+     
+     $("#Question-Form").submit(function(event){
+       event.preventDefault();
+         var Question = $("#question").val();
+         var Correct_Answer = $("#Correct-Answer").val();
+         var Option_1 = $("#Option-1").val();
+         var Option_2 = $("#Option-2").val();
+         var Option_3 = $("#Option-3").val();
+         var Hint = $("#hint").val();
+         
+         var newQuestionEntry = new QuestionEntry();
+         newQuestionEntry.set("Question", Question);
+         newQuestionEntry.set("Correct_Answer", Correct_Answer);
+         newQuestionEntry.set("Option_1", Option_1);
+         newQuestionEntry.set("Option_2", Option_2);
+         newQuestionEntry.set("Option_3", Option_3);
+         newQuestionEntry.set("Hint", Hint);
+         
+         newQuestionEntry.save({
+            success: function(){
+            
+            }, error: function(error){
+               console.log("Error:"+error.message);
+            }
+         });
+     });
+     
+     </script>
+
+        </div>
+
+        <div id="teacherhome" ng-if="current == 5">
           <div id="newQuestionWeek" ng-hide="qJustAdded">
             <form class="form-horizontal">
 
