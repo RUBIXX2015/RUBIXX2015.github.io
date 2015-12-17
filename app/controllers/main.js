@@ -140,7 +140,7 @@ angular.module('app')
         });
     } else {
         $scope.error = true;
-        $scope.errorMessage = "Sorry, Dice currently requires a hampton.edu email address.";
+        $scope.errorMessage = "Sorry, RUBIX currently requires a hampton.edu email address.";
     }
 
     };
@@ -184,7 +184,7 @@ angular.module('app')
             });
         } else {
             $scope.error = true;
-            $scope.errorMessage = "Sorry, Dice currently requires a hampton.edu email address.";
+            $scope.errorMessage = "Sorry, RUBIX currently requires a hampton.edu email address.";
         }
     }
 
