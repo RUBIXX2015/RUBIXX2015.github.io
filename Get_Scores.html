@@ -1,0 +1,72 @@
+<!doctype html>
+<head>
+
+  <meta charset="utf-8">
+  
+  <title>RUBIX | Get Question</title>
+  <meta name="description" content="My Parse App">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+</head>
+
+<body style="text-align:center">
+
+  <p class="logo-name" style="text-align:center"><img src="img/RubixImg.png" alt="Rubix" style="width:320px;height:300px;"></p>
+  <div id="main">
+
+  <ul id= "list-score">
+  <!--
+	list of user scores
+	<li>
+		<H1> User Avatar
+		<N> Score Number
+	-->
+	</ul>
+
+  </div>
+ 
+  <script type="text/javascript">
+     Parse.initialize("URmLhPy0JkjYYTsj8gb0ovzwgBZZyE5rdmAfzJn1", "kfgeDrMXnqNvFX0fxZeRJcWgkAq7oAlZO4GV1Pgc");
+    
+	var Profile  = Parse.Object.extend("Profile");
+	
+    funtion showscore()
+	{
+		var query = new Parse.Query(Profile);
+		query.find({
+			
+			success: function(results){
+			
+				for (var i in results){
+					
+					var UserScore = results[i].get("UserScore");
+					var file = results[i].get("file");
+					console.log("User: "+file+ "	Score: "+UserScore);
+				
+				}
+					
+			
+			}, error: function(error){
+			 
+				console.log("Query Error:"+error.message);
+			
+			}
+		
+		
+		})
+	
+	
+	
+	}
+	 
+	 
+     </script>
+     
+<!-- Link to go back to log-in page -->
+<p><a href="http://rubixx2015.github.io/#/">Return to log-in page</a></p>
+
+</body>
+</html>
