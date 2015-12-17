@@ -5,7 +5,7 @@ angular.module('app', [
 	'parse-angular.enhance',
 
 	/* models */
-	'Dice.models.Questions',
+	'dice.models.Questions',
 
 	/* states */ 
 	// 'hunews.states.features', 
