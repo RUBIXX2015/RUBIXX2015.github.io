@@ -44,7 +44,11 @@
 					
 					var UserScore = results[i].get("UserScore");
 					var file = results[i].get("file");
-					console.log("User: "+file+ "	Score: "+UserScore);
+					//console.log("User: "+file+ "	Score: "+UserScore);
+					output += "<li>";
+					output += "<h3>"+file+"</h3>";
+					output += "<p>"+UserScore+"</p>";
+					output += "</li>";
 				
 				}
 					
