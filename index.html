@@ -305,23 +305,6 @@
   </div>
   
   
-  <h1>Log in!</h1>
-  <form id="Login">
-      <p><input id="Login-Name" type="text"></p>
-      <p><input id="Login-Password" type="password"></p>
-      <p><input id="Login-Submit" type="submit"></p>
-  </form>
-  
-  
-  <h1>Register!</h1>
-  <form id="Register">
-      <p><input id="Signup-Name" type="text"></p>
-      <p><input id="Signup-Password" type="password"></p>
-      <p><input id="Signup-Submit" type="submit"></p>
-  </form>
-  
-  
- 
   <h1>New Profile Form</h1>
       <form id ="Profile-Form">
       <label class="col-md-4 control-label" for="First-Name" style="text-align:right">Enter first name </label>
@@ -370,47 +353,8 @@
       Parse.User.logOut();
       checkLogin();
      });
-     
-     
-     
-     $("#Login").submit(function(event)
-     {//Login
-         event.preventDefault();
-     
-         var name = $("#Login-Name").val();
-         var pass = $("#Login-Password").val();
-         
-         Parse.User.logIn(name, pass, {
-            success: function(user){
-               checkLogin();
-         }, error: function(user, error){
-            console.log("Log in Error:"+error.message);
-         } 
-         
-         });
-       });
-     
-     
-     $("#Register").submit(function(event){//Registration
-         event.preventDefault();
-         
-         var name = $("#Signup-Name").val();
-         var pass = $("#Signup-Password").val();
-         
-         var user = new Parse.User();
-         user.set("username", name);
-         user.set("password", pass);
-         
-         user.signUp(null, {
-            success: function(user){
-               checkLogin();
-            }, error: function(user, error){
-               console.log("Signup error:"+error.message);
-            }
-         });
-      });
-         
-         
+   
+    
      $("#Profile-Form").submit(function(event){
        event.preventDefault();
          var FirstName = $("#First-Name").val();
