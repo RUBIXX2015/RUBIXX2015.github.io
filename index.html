@@ -134,22 +134,95 @@
         </div>
       </nav>
 
-      <div class="scene" ng-show="loggedIn">
+	    <div >  
+      <h1 ng-hide="go==1" style="font-family:verdana"> Welcome!</h1>
+      <h1 style="font-family:verdana">  You have entered the Rubix Gamification of 151!</h2>
+      <br> </br>
+      <h2> <img src="img/RubixImg.png" alt="Rubix" style="width:320px;height:300px;"> </h2>
+      <br> </br>
+      <p> You Are: {{userEmail}} </p>
+      <br> </br>
+      <h1 style="font-family:verdana"> Meet our Team </h1>
+
+                <section class="highlight">
+                  <a href="#" class="image featured"><img src="Quinton.jpg" width="200" height="200" alt="" /></a>
+                  <h3><a href="#">Quinton Gipson</a></h3>
+                  <p>Product Manager/Developer.</p>
+                </section>
+
+                <section class="highlight">
+
+                  <table border="1" style="width:45%" align = "center">
+                    <tr>
+                      <td><center><img src="Calvin.jpg" width="200" height="200" alt="" /></center></td>
+                      <td><center><img src="Anesha.jpg" width="200" height="200" alt="" /></center></td>
+                      <td><center><img src="photo.jpg" width="200" height="200" alt="" /></center></td>
+                    </tr>
+                    <tr>
+                      <td><center><h3>Calvin Chambers</h3></center></td>
+                      <td><center>  <h3>Anesha Bembury</h3></center></td>
+                      <td><center>  <h3>Manfred Patterson</h3></center></td>
+                    </tr>
+                    <tr>
+                      <td><center> <p>Technical Advisor/Developer.</p></center></td>
+                      <td><center>  <p>Documentation Coordinator/Developer.</p></center></td>
+                      <td><center>  <p>Database Specialist/Developer.</p></center></td>
+                    </tr>
+                  </table>
+
+                </section>
+
+      <br>  </br>
+      <br> </br>
+      <h1 style="font-family:verdana">RUBIX QUESTION SETS</h1>
+      <br> </br>
+      <table border="1" style="width:80%" align = "center">
+        <tr>
+          <td><center>Question Set 1</center></td>
+          <td><button class="btn-custom" id="btn-login" ng-model="go" ng-click="go=1" ng-hide="go==1">Begin</button></td>
+        </tr>
+        <tr>
+          <td><center>Question Set 2</center></td>
+          <td><img src="locksm.png" alt="lock"></td>
+        </tr>
+        <tr>
+          <td><center>Question Set 3</center></td>
+          <td><img src="locksm.png" alt="lock"></td>
+        </tr>
+        <tr>
+          <td><center>Question Set 4</center></td>
+          <td><img src="locksm.png" alt="lock"></td>
+        </tr>
+        <tr>
+          <td><center>Question Set 5</center></td>
+          <td><img src="locksm.png" alt="lock"></td>
+        </tr>
+      </table>
+<br>  </br>
+
+<br>  </br>
+<br>  </br>
+      <br>  </br>
+      <br>  </br>
+    </div>
+
+      <div ng-show="go==1" class="scene" ng-show="loggedIn">
         <div id="home" ng-if="current == 1">
           <div id="homecontent" class="row">
             <div class="col-md-1 col-md-offset-1">
               <div class="row">
                 <div class="btn-group-vertical" role="group" aria-label="Default button group">
-                    <p>Weeks</p>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(1)"><h4>1</h4></button>
+                    <p>Question Set</p>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(1)"><h4 style="color:Red;" ng-show="currentQuestion.number<=10">1</h4><h4 ng-show="currentQuestion.number!=1"></h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(2)"><h4>2</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(3)"><h4>3</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(4)"><h4>4</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(5)"><h4>5</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(6)"><h4>6</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(7)"><h4>7</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(8)"><h4>8</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(9)"><h4>9</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(6)"><h4><img src="lock.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(7)"><h4><img src="lock.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(8)"><h4><img src="lock.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(9)"><h4><img src="lock.png" alt="lock"> </h4></button>
+                    <p> </p>
                 </div>
               </div>
             </div>
@@ -246,16 +319,25 @@
                 <div class="btn-group-vertical" role="group" aria-label="Default button group">
                     <p>Questions</p>
                     <!-- id="weekly" -->
-                    <button type="button" class="btn btn-sm"><h4>1</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>2</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>3</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>4</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>5</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>6</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>7</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>8</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>9</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>10</h4></button>
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==1">1</h4><h4 ng-show="currentQuestion.number!=1"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==2">2</h4><h4 ng-show="currentQuestion.number!=2"> </h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==3" >3</h4><h4 ng-show="currentQuestion.number!=3"></h4><h4 ng-show="currentQuestion.number!=1"></h4><h4 ng-show="currentQuestion.number!=1"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==4" >4</h4><h4 ng-show="currentQuestion.number!=4"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==5" >5</h4><h4 ng-show="currentQuestion.number!=5"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==6" >6</h4><h4 ng-show="currentQuestion.number!=6"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==7" >7</h4><h4 ng-show="currentQuestion.number!=7"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==8" >8</h4><h4 ng-show="currentQuestion.number!=8"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==9" >9</h4><h4 ng-show="currentQuestion.number!=9"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==10">10</h4><h4 ng-show="currentQuestion.number!=10"></h4></button>
                 </div>
               </div>
             </div>
