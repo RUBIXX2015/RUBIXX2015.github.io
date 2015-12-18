@@ -233,14 +233,12 @@
               <h2 ng-show="!questionCorrect"> The Correct Answer is: </h2>
               <h2 ng-show="!questionCorrect">{{currentQuestion.choices[currentQuestion.answer]}}</h2>
               
+              <h2 ng-show="studentSelectedNumber(10)"> You have Completed Question Set 1 </h2>
+              <h2 ng-show="studentSelectedNumber(10)"> Please Return Home</h2>
+              <h2 ng-show="studentSelectedNumber(10)"><a href="http://rubixx2015.github.io/#/">Home</a></h2>
+
               <button ng-click="studentSelectedNumber(currentQuestion.number + 1)" class="btn-custom" id="btn-login"><h3>Next Question<h3></button>
               
-            </div>
-
-            <div ng-if="studentSelectedNumber(currentQuestion.number) == 10" class="col-md-7 col-md-offset-1">
-
-              <h2> You have completed your tasks </h2>
-
             </div>
             
             <div class="col-md-1 col-md-offset-1">
