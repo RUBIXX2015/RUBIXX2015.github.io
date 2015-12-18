@@ -1,0 +1,202 @@
+<!doctype html>
+<head>
+
+  <meta charset="utf-8">
+  
+  <title>RUBIX | New Profile</title>
+  <meta name="description" content="My Parse App">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+</head>
+
+<body style="text-align:center">
+<p class="logo-name" style="text-align:center"><img src="img/RubixImg.png" alt="Rubix" style="width:320px;height:300px;"></p>
+  
+  
+  <div id="main">
+  
+  <div id="Current-User"></div>
+  <h1>Log out!</h1>
+  
+  
+  <div>
+   <button id="Logout">Log out</button>
+  </div>
+  
+  
+  <h1>Log in!</h1>
+  <form id="Login">
+      <p><input id="Login-Name" type="text"></p>
+      <p><input id="Login-Password" type="password"></p>
+      <p><input id="Login-Submit" type="submit"></p>
+  </form>
+  
+  
+  <h1>Register!</h1>
+  <form id="Register">
+      <p><input id="Signup-Name" type="text"></p>
+      <p><input id="Signup-Password" type="password"></p>
+      <p><input id="Signup-Submit" type="submit"></p>
+  </form>
+  
+  
+ 
+  <h1>New Profile Form</h1>
+      <form id ="Profile-Form">
+      <label class="col-md-4 control-label" for="First-Name">Enter first name below</label>
+      <p><input id ="First-Name" type="text"></p>
+      <label class="col-md-4 control-label" for="Last-Name">Enter last name below</label>
+      <p><input id="Last-Name" type="text"></p>
+      <label class="col-md-4 control-label" for="email">Enter email below</label>
+      <p><input id="email" type="text"></p>
+      <label class="col-md-4 control-label" for="major">Enter major below</label>
+      <p><input id="major" type="text"></p>
+      <label class="col-md-4 control-label" for="csc-class">Enter CSC class below</label>
+      <p><input id="csc-class" type="text"></p>
+      <label class="col-md-4 control-label" for="section">Enter class section below</label>
+      <p><input id="section" type="text"></p>
+      <label class="col-md-4 control-label" for="instructor">Enter instructor below</label>
+      <p><input id="instructor" type="text"></p>
+      <label class="col-md-4 control-label" for="avatar">Upload avatar below</label>
+      <p><input id="Avi-File" type="file"></p>
+      <p><input id="Profile-Submit" type="submit"></p>
+    </form>
+    
+  </div>
+
+
+  <script type="text/javascript">
+     Parse.initialize("URmLhPy0JkjYYTsj8gb0ovzwgBZZyE5rdmAfzJn1", "kfgeDrMXnqNvFX0fxZeRJcWgkAq7oAlZO4GV1Pgc");
+     var ProfileEntry = Parse.Object.extend("Profile");
+     
+     function checkLogin()
+     {
+      if(Parse.User.current()) 
+      {
+         $("#Current-User").html("Current user:"+Parse.User.current().get("username"));
+      }
+      else
+      {
+         $("#Current-User").html("");
+      }
+     }
+     
+     checkLogin();
+     
+     
+     $("#Logout").click(function(event) 
+     {//logout
+      Parse.User.logOut();
+      checkLogin();
+     });
+     
+     
+     
+     $("#Login").submit(function(event)
+     {//Login
+         event.preventDefault();
+     
+         var name = $("#Login-Name").val();
+         var pass = $("#Login-Password").val();
+         
+         Parse.User.logIn(name, pass, {
+            success: function(user){
+               checkLogin();
+         }, error: function(user, error){
+            console.log("Log in Error:"+error.message);
+         } 
+         
+         });
+       });
+     
+     
+     $("#Register").submit(function(event){//Registration
+         event.preventDefault();
+         
+         var name = $("#Signup-Name").val();
+         var pass = $("#Signup-Password").val();
+         
+         var user = new Parse.User();
+         user.set("username", name);
+         user.set("password", pass);
+         
+         user.signUp(null, {
+            success: function(user){
+               checkLogin();
+            }, error: function(user, error){
+               console.log("Signup error:"+error.message);
+            }
+         });
+      });
+         
+         
+     $("#Profile-Form").submit(function(event){
+       event.preventDefault();
+         var FirstName = $("#First-Name").val();
+         var LastName = $("#Last-Name").val();
+         var Email = $("#email").val();
+         var Major = $("#major").val();
+         var CSC_Class = $("#csc-class").val();
+         var Section = $("#section").val();
+         var Instructor = $("#instructor").val();
+         var user = Parse.User.current();
+
+         var newProfileEntry = new ProfileEntry();//new profile object
+         
+         newProfileEntry.set("FirstName", FirstName);
+         newProfileEntry.set("LastName", LastName);
+         newProfileEntry.set("Email", Email);
+         newProfileEntry.set("Major", Major);
+         newProfileEntry.set("CSC_Class", CSC_Class);
+         newProfileEntry.set("Section", Section);
+         newProfileEntry.set("Instructor", Instructor);
+         newProfileEntry.set("user", user);
+         
+         //get file from form input
+         var fileElement = $("#Avi-File")[0];
+         var filePath = $("#Avi-File").val();
+         var fileName = filePath.split("\\").pop();
+         
+         if(fileElement.files.length > 0)
+         {
+            var file = fileElement.files[0];
+            var newFile = new Parse.File(fileName, file);
+            newFile.save({
+            success: function(){
+            
+            }, error: function(file, error){
+               console.log("Error:"+error.message);
+            }
+            }).then(function(theFile){
+               newProfileEntry.set("file", theFile);
+               newProfileEntry.save({
+                  success:function(){
+                  
+                  }, error:function(error){
+                     console.log("Error:"+error.message);
+                  }
+                  
+                });
+            });
+         }else
+         {
+          newProfileEntry.save({
+            success: function(){
+            
+            }, error: function(error){
+               console.log("Error:"+error.message);
+            }
+         }); 
+        }
+            
+     });
+
+   </script>
+<!-- Link to go back to log-in page -->
+<p><a href="http://rubixx2015.github.io/#/">Return to log-in page</a></p>
+
+</body>
+</html>
