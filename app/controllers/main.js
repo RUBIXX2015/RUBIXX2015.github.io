@@ -67,9 +67,9 @@ angular.module('app')
     // $scope.currentQuestion = $scope.setCurrentQuestion();
 
     $scope.loadLeaderboard = function() {
-        var query = new Parse.Query("User");
+        var query = new Parse.Query("Profile");
 
-        query.descending("totalPoints");
+        query.descending("UserScore");
         query.equalTo("type", 1);
 
         query.find({
@@ -84,10 +84,10 @@ angular.module('app')
               var object = results[i];
 
               $scope.students.push({
-                totalPoints: object.get('totalPoints'),
-                avatar: object.get('avatar'),
-                name: object.get('username'),
-                avatarName: object.get('avatarName')
+                totalPoints: object.get('UserScore'),
+                avatar: object.get('file'),
+                name: object.get('LastName'),
+                avatarName: object.get('FirstName')
                 });
 
               $scope.$apply();
