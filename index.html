@@ -140,16 +140,16 @@
             <div class="col-md-1 col-md-offset-1">
               <div class="row">
                 <div class="btn-group-vertical" role="group" aria-label="Default button group">
-                    <p>Weeks</p>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(1)"><h4>1</h4></button>
+                    <p>Question Set</p>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(1)"><h4 style="color:Red;" ng-show="currentQuestion.number<=10">1</h4><h4 ng-show="currentQuestion.number!=1"></h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(2)"><h4>2</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(3)"><h4>3</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(4)"><h4>4</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(5)"><h4>5</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(6)"><h4>6</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(7)"><h4>7</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(8)"><h4>8</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(9)"><h4>9</h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(6)"><h4><img src="locksm.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(7)"><h4><img src="locksm.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(8)"><h4><img src="locksm.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(9)"><h4><img src="locksm.png" alt="lock"> </h4></button>
                 </div>
               </div>
             </div>
@@ -211,7 +211,7 @@
               var countdownTimer = setInterval('secondPassed()', 1000);
               </script>
               
-              <span class="score">0</span>
+             <!-- <span class="score">0</span> -->
               
 
               <div class="row">
@@ -246,16 +246,25 @@
                 <div class="btn-group-vertical" role="group" aria-label="Default button group">
                     <p>Questions</p>
                     <!-- id="weekly" -->
-                    <button type="button" class="btn btn-sm"><h4>1</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>2</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>3</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>4</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>5</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>6</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>7</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>8</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>9</h4></button>
-                    <button type="button" class="btn btn-sm"><h4>10</h4></button>
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==0">1</h4><h4 ng-show="currentQuestion.number!=0"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==1">2</h4><h4 ng-show="currentQuestion.number!=1"> </h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==2" >3</h4><h4 ng-show="currentQuestion.number!=2"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==3" >4</h4><h4 ng-show="currentQuestion.number!=3"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==4" >5</h4><h4 ng-show="currentQuestion.number!=4"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==5" >6</h4><h4 ng-show="currentQuestion.number!=5"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==6" >7</h4><h4 ng-show="currentQuestion.number!=6"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==7" >8</h4><h4 ng-show="currentQuestion.number!=7"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==8" >9</h4><h4 ng-show="currentQuestion.number!=8"></h4></button>
+                    
+                    <button type="button" class="btn btn-sm"><h4 style="color:blue;" ng-show="currentQuestion.number==9">10</h4><h4 ng-show="currentQuestion.number!=9"></h4></button>
                 </div>
               </div>
             </div>
@@ -345,7 +354,7 @@
       <p><input id="section" type="text"></p>
       <label class="col-md-4 control-label" for="instructor" style="text-align:right">Enter instructor </label>
       <p><input id="instructor" type="text"></p>
-      <label class="col-md-4 control-label" for="avatar">Upload avatar below (File name MUST be one word - NO spaces, parenthesis, or special characters)</label>
+      <label class="col-md-4 control-label" for="avatar" style="text-align:right">Upload avatar </label>
       <p><input id="Avi-File" type="file"></p>
       <p><input id="Profile-Submit" type="submit"></p>
     </form>
@@ -506,6 +515,42 @@
     </form>
     
   </div>
+
+
+  <script type="text/javascript">
+     Parse.initialize("URmLhPy0JkjYYTsj8gb0ovzwgBZZyE5rdmAfzJn1", "kfgeDrMXnqNvFX0fxZeRJcWgkAq7oAlZO4GV1Pgc");
+    
+     var QuestionEntry = Parse.Object.extend("Database");
+     
+     $("#Question-Form").submit(function(event){
+       event.preventDefault();
+         var Question = $("#question").val();
+         var Correct_Answer = $("#Correct-Answer").val();
+         var Option_1 = $("#Option-1").val();
+         var Option_2 = $("#Option-2").val();
+         var Option_3 = $("#Option-3").val();
+         var Hint = $("#hint").val();
+         
+         var newQuestionEntry = new QuestionEntry();
+         newQuestionEntry.set("Question", Question);
+         newQuestionEntry.set("Correct_Answer", Correct_Answer);
+         newQuestionEntry.set("Option_1", Option_1);
+         newQuestionEntry.set("Option_2", Option_2);
+         newQuestionEntry.set("Option_3", Option_3);
+         newQuestionEntry.set("Hint", Hint);
+         
+         newQuestionEntry.save({
+            success: function(){
+            
+            }, error: function(error){
+               console.log("Error:"+error.message);
+            }
+         });
+     });
+     
+     </script>
+
+        </div>
 
 
   <script type="text/javascript">
