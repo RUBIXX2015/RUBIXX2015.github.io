@@ -365,6 +365,44 @@
       checkLogin();
      });
      
+     
+     
+     $("#Login").submit(function(event)
+     {//Login
+         event.preventDefault();
+     
+         var name = $("#Login-Name").val();
+         var pass = $("#Login-Password").val();
+         
+         Parse.User.logIn(name, pass, {
+            success: function(user){
+               checkLogin();
+         }, error: function(user, error){
+            console.log("Log in Error:"+error.message);
+         } 
+         
+         });
+       });
+     
+     
+     $("#Register").submit(function(event){//Registration
+         event.preventDefault();
+         
+         var name = $("#Signup-Name").val();
+         var pass = $("#Signup-Password").val();
+         
+         var user = new Parse.User();
+         user.set("username", name);
+         user.set("password", pass);
+         
+         user.signUp(null, {
+            success: function(user){
+               checkLogin();
+            }, error: function(user, error){
+               console.log("Signup error:"+error.message);
+            }
+         });
+      });
          
          
      $("#Profile-Form").submit(function(event){
