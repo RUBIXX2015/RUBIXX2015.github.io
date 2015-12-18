@@ -301,9 +301,4 @@ angular.module('app')
 
     }
 
-}])
-.directive('HomePage', function() {
-  return {
-    templateUrl: 'HomePage.html'
-  };
-});
+}]);
