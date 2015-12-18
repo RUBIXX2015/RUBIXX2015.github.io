@@ -274,20 +274,70 @@
         </div>
 
         <div id="leaderboard" ng-if="current == 2">
-          <div class="container">
-            <div class="row">
-              <h2>Leaderboard</h2>
-              <ul class="listrap">
-                      <li ng-repeat="student in students">
-                          <div class="listrap-toggle">
-                              <span></span>
-                              <img src="img/avatars/{{student.avatarName}}.png" class="img-circle" />
-                          </div>
-                          <strong>{{student.totalPoints}} pts</strong>
-                      </li>
-                  </ul>
-            </div>
-          </div>
+          <body style="text-align:center">
+
+  <p class="logo-name" style="text-align:center"><img src="img/RubixImg.png" alt="Rubix" style="width:320px;height:300px;"></p>
+  <div id="main">
+
+  <ul id= "list-profiles">
+  <!--
+	list of profiles
+	<li>
+		<H3>First-Name
+		<p>avatar
+	-->
+	</ul>
+
+  </div>
+ 
+  <script type="text/javascript">
+     Parse.initialize("URmLhPy0JkjYYTsj8gb0ovzwgBZZyE5rdmAfzJn1", "kfgeDrMXnqNvFX0fxZeRJcWgkAq7oAlZO4GV1Pgc");
+    
+     var ProfileEntry = Parse.Object.extend("Profile");
+	 
+	 
+	function getProfile()
+	{
+		var query = new Parse.Query(ProfileEntry);
+		
+		query.find({
+		success: function(results){
+			var output = "";
+			for(var i in results) {
+				var FN = results[i].get("FirstName");
+				var pnts = results[i].get("UserScore");				
+				var img = "";
+				if (results[i].get("file"))
+					{
+						var file = results[i].get("file");
+						var url = file.url();
+						console.log("url:"+url);
+						img = "<img src='"+url+"'>";
+					}
+					
+				output += "<li>";
+				output += "<h3>"+FN+"</h3>";
+				output += img;
+				output += "</li>";
+				output += "score: " + pnts;
+				output += "</li>";
+			}
+			$("#list-profiles").html(output);
+		}, error: function(error){
+			console.log("Query Error:" + error.message);
+		}
+		
+		});
+	}
+     
+	 getProfile(); 
+     </script>
+     
+<!-- Link to go back to log-in page -->
+<p><a href="http://rubixx2015.github.io/#/">Return to log-in page</a></p>
+
+</body>
+</html>
         </div>
 
         <div id="profile" ng-if="current == 3">
