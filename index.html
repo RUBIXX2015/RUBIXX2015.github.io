@@ -132,7 +132,7 @@
           </div>
         </div>
       </nav>
-
+<!--
 	    <div >  
       <h1 ng-hide="go==1" style="font-family:verdana"> Welcome!</h1>
       <h1 style="font-family:verdana">  You have entered the Rubix Gamification of 151!</h2>
@@ -206,6 +206,8 @@
     </div>
 
       <div ng-show="go==1" class="scene" ng-show="loggedIn">
+      -->
+      <div ng-show="loggedIn" class="scene">
         <div id="home" ng-if="current == 1">
           <div id="homecontent" class="row">
             <div class="col-md-1 col-md-offset-1">
@@ -217,10 +219,10 @@
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(3)"><h4>3</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(4)"><h4>4</h4></button>
                     <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(5)"><h4>5</h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(6)"><h4><img src="lock.png" alt="lock"></h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(7)"><h4><img src="lock.png" alt="lock"></h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(8)"><h4><img src="lock.png" alt="lock"></h4></button>
-                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(9)"><h4><img src="lock.png" alt="lock"> </h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(6)"><h4><img src="locksm.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(7)"><h4><img src="locksm.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(8)"><h4><img src="locksm.png" alt="lock"></h4></button>
+                    <button type="button" class="btn btn-sm" ng-click="studentSelectedWeek(9)"><h4><img src="locksm.png" alt="lock"> </h4></button>
                     <p> </p>
                 </div>
               </div>
@@ -282,9 +284,6 @@
               }
               var countdownTimer = setInterval('secondPassed()', 1000);
               </script>
-              
-              <span class="score">0</span>
-              
 
               <div class="row">
                 <p> </p>
@@ -313,7 +312,7 @@
               
             </div>
             
-<div class="col-md-1 col-md-offset-1">
+        <div class="col-md-1 col-md-offset-1">
               <div class="row">
                 <div class="btn-group-vertical" role="group" aria-label="Default button group">
                     <p>Questions</p>
